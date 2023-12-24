@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from users.managers import UserManager
+
 
 class User(AbstractUser):
 	username = None
@@ -13,6 +15,8 @@ class User(AbstractUser):
 	middle_name = models.CharField(_("middle name"), max_length=150, null=True, blank=True)
 	
 	date_of_birth = models.DateField(_("date of birth"), null=True, blank=True)
+	
+	objects = UserManager()
 	
 	USERNAME_FIELD = "email"
 	REQUIRED_FIELDS = []

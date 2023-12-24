@@ -20,6 +20,7 @@ DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS').split()
 
+# User model
 AUTH_USER_MODEL = 'users.User'
 
 # Application definition
