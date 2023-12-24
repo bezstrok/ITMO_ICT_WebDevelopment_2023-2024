@@ -43,7 +43,8 @@ INSTALLED_APPS += [
 # Apps
 
 INSTALLED_APPS += [
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'tours.apps.ToursConfig'
 ]
 
 MIDDLEWARE = [
