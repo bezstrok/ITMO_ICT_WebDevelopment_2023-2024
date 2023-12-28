@@ -16,7 +16,7 @@ class Tour(models.Model):
 	name = models.CharField(max_length=200)
 	agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
 	description = models.TextField()
-	country = models.CharField(max_length=100)
+	country = models.CharField(max_length=100, blank=True)
 	start_date = models.DateField()
 	end_date = models.DateField()
 	payment_conditions = models.JSONField(default=dict)
