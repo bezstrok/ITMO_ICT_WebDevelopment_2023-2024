@@ -1,3 +1,3 @@
 from .booking import Booking
 from .reviews import Review
-from .tours import Agency, Tour
+from .tours import Agency, Tour, TourImage
