@@ -22,7 +22,8 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('common.urls'))
+    path('', include('common.urls')),
+    path('accounts/', include('users.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # TODO: Nginx or Apache instead
