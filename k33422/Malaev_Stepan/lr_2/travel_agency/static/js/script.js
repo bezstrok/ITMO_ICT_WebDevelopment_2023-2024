@@ -43,8 +43,7 @@ function typeEffect($dynamicText, wordIndex = 0, charIndex = 0, isDeleting = fal
 
 // Status Loader
 
-function createStatusMessageHandler(formSelector) {
-    const $form = $(`${formSelector}`);
+function createStatusMessageHandler($form) {
     const $circleLoader = $form.find('.circle-loader');
     const $messageObject = $form.find('.message');
 
@@ -74,12 +73,15 @@ const DEFAULT_ERROR_MESSAGE = 'Unknown error. Try again.';
 const SUCCESS_MESSAGE = 'Success!';
 const RELOAD_TIMEOUT = 650;
 
-function createFormHandler(formSelector, url) {
+function createFormHandler(formSelector) {
     return async (event) => {
         event.preventDefault();
 
-        const statusHandler = createStatusMessageHandler(formSelector);
+        const $form = $(formSelector);
         const $submitButton = $(`${formSelector} button[type="submit"]`);
+
+        const statusHandler = createStatusMessageHandler($form);
+        const url = $form.attr('action');
 
         try {
             statusHandler.show('');
@@ -116,8 +118,11 @@ $(document).ready(function () {
         }
     });
 
-    $('#login-form').on('submit', createFormHandler('#login-form', DjangoConfig.LOGIN_URL));
-    $('#register-form').on('submit', createFormHandler('#register-form', DjangoConfig.REGISTER_URL));
+    $('#login-form').on('submit', createFormHandler('#login-form'));
+    $('#register-form').on('submit', createFormHandler('#register-form'));
+
+    $('#profile-form').on('submit', createFormHandler('#profile-form'));
+    $('#password-form').on('submit', createFormHandler('#password-form'));
 
     $('.logout-link').on('click', function (event) {
         event.preventDefault();
@@ -128,4 +133,6 @@ $(document).ready(function () {
     if (dynamicText) {
         typeEffect(dynamicText);
     }
+
+    M.Tabs.init($('.tabs'), {})
 });

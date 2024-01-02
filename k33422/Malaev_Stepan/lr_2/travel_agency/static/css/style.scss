@@ -15,6 +15,20 @@ $color-error: red;
   margin-top: 10px;
 }
 
+.container-tabs {
+  border: 1px solid teal;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: rgba(0, 152, 136, 0.2);
+}
+
+.tabs .indicator {
+  background-color: $color-primary;
+}
+
 /* Text Typing Animation */
 
 h4 {

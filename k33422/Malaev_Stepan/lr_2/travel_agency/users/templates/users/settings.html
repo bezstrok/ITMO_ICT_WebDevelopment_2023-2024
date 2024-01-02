@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+
+        <h2 class="teal-text">User Profile</h2>
+
+        <div class="container-tabs">
+            <!-- Вкладки -->
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#general" class="active teal-text">General</a></li>
+                <li class="tab col s3"><a href="#password" class="teal-text">Change password</a></li>
+            </ul>
+            <div class="divider"></div>
+
+            <!-- Содержимое вкладок -->
+            <div class="section">
+
+                <div id="general" class="col s12">
+                    <form id="profile-form" method="post" action="{% url 'update_profile' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% for field in profile_form %}
+                                <div class="input-field col s12">
+                                    {{ field }}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-status section">
+                            <div class="circle-loader">
+                                <div class="status draw"></div>
+                            </div>
+                            <div class="message"></div>
+                        </div>
+
+                        <button class="btn waves-effect waves-light" type="submit">
+                            Save Changes
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
+                </div>
+
+                <div id="password" class="col s12">
+                    <form id="password-form" method="post" action="{% url 'change_password' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% for field in password_form %}
+                                <div class="input-field col s12">
+                                    {{ field }}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-status section">
+                            <div class="circle-loader">
+                                <div class="status draw"></div>
+                            </div>
+                            <div class="message"></div>
+                        </div>
+
+                        <button class="btn waves-effect waves-light" type="submit">
+                            Change Password
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,8 +1,12 @@
-from django.contrib.auth import authenticate, get_user_model, login
+from django.contrib.auth import authenticate, get_user_model, login, update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import TemplateView
+
+from . import forms, handlers
 
 User = get_user_model()
 
@@ -40,5 +44,47 @@ class LoginView(View):
 				return JsonResponse({'success': True})
 			else:
 				return JsonResponse({'error': 'Account is disabled'}, status=403)
-		else:
-			return JsonResponse({'error': 'Invalid credentials'}, status=400)
+		
+		return JsonResponse({'error': 'Invalid credentials'}, status=400)
+
+
+class SettingsView(LoginRequiredMixin, TemplateView):
+	template_name = 'users/settings.html'
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['profile_form'] = forms.UpdateProfileForm(instance=self.request.user)
+		context['password_form'] = forms.PasswordChangeForm(user=self.request.user)
+		
+		return context
+
+
+class UpdateProfileView(LoginRequiredMixin, View):
+	form_class = forms.UpdateProfileForm
+	
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST, instance=request.user)
+		
+		if form.is_valid():
+			form.save()
+			return JsonResponse({'success': True})
+		
+		error_message = handlers.handle_form_errors(form)
+		
+		return JsonResponse({'error': error_message}, status=400)
+
+
+class ChangePasswordView(LoginRequiredMixin, View):
+	form_class = forms.PasswordChangeForm
+	
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.user, request.POST)
+		
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			return JsonResponse({'success': True})
+		
+		error_message = handlers.handle_form_errors(form)
+		
+		return JsonResponse({'error': error_message}, status=400)

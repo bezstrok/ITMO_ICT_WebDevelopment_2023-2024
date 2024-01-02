@@ -6,6 +6,20 @@
   margin-right: 10px;
   margin-top: 10px;
 }
+
+.container-tabs {
+  border: 1px solid teal;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: rgba(0, 152, 136, 0.2);
+}
+
+.tabs .indicator {
+  background-color: #009688;
+}
 /* Text Typing Animation */
 h4 {
   font-weight: 700;
