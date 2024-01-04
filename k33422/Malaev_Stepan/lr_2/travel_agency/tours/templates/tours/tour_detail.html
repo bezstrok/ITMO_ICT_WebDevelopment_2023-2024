@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+    </style>
+
+    <div class="container">
+        <div class="card horizontal">
+            <div class="card-image">
+                <div class="swiper">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            {% for image in tour.images.all %}
+                                <div class="swiper-slide">
+                                    <img src="{{ MEDIA_URL }}{{ image.image }}" alt="{{ tour.name }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h2 class="header">{{ tour.name }}</h2>
+                    <p class="flow-text">{{ tour.description }}</p>
+                    <div class="chip">
+                        {{ tour.country }}
+                    </div>
+                    <div class="chip">
+                        {{ tour.agency }}
+                    </div>
+                    <div class="chip">
+                        Start: {{ tour.start_date|date:"M d, Y" }}
+                    </div>
+                    <div class="chip">
+                        End: {{ tour.end_date|date:"M d, Y" }}
+                    </div>
+                    <div class="chip">
+                        Duration: {{ tour.duration }} days
+                    </div>
+                    <div class="payment-conditions">
+                        <h5>Payment Conditions</h5>
+                        {% for key, value in tour.payment_conditions.items %}
+                            <p>{{ key|title }}: {{ value }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light" disabled>Book Now</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Раскрывающийся блок Отзывов -->
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">comment</i>Show Reviews</div>
+                <div class="collapsible-body">
+                    {% if user.is_authenticated %}
+                        {% for review in tour.reviews.all %}
+                            <div class="review-card">
+                                <span class="review-author">{{ review.user.first_name|default:"Unknown User" }}</span>
+                                <span class="review-rating">Rating: {{ review.rating }}/10</span>
+                                <p>{{ review.comment }}</p>
+                                <div class="review-date">Posted on: {{ review.comment_date|date:"M d, Y" }}</div>
+                            </div>
+                        {% endfor %}
+                        <button class="btn waves-effect waves-light modal-trigger" href="#add-review-modal">Add Review
+                        </button>
+                    {% else %}
+                        <p class="center">Please <a class="modal-trigger" href="#login-modal">login</a> to view reviews.
+                        </p>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Add Review Modal -->
+    <div id="add-review-modal" class="modal">
+        <div class="modal-content">
+            <form id="add-review-form" class="ajax-form" method="post" action="{% url 'add_review' tour.id %}">
+                {% csrf_token %}
+                <h4 class="center-align">Add Review</h4>
+                <div class="input-field">
+                    <textarea id="review-comment" name="comment" class="materialize-textarea" required></textarea>
+                    <label for="review-comment">Your Comment</label>
+                </div>
+                <div class="input-field">
+                    <input type="number" id="review-rating" name="rating" min="1" max="10" required>
+                    <label for="review-rating">Rating (1-10)</label>
+                </div>
+                <div class="form-status section">
+                    <div class="circle-loader">
+                        <div class="status draw"></div>
+                    </div>
+                    <div class="message"></div>
+                </div>
+                <button type="submit" class="btn waves-effect waves-light">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

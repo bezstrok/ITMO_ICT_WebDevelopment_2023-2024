@@ -113,16 +113,18 @@ $(document).ready(function () {
 
     M.Modal.init($('.modal'), {
         onCloseEnd: function () {
-            $('.modal-content form').trigger("reset");
-            createStatusMessageHandler('.modal-content form').hide()
+            $('.modal').each(function () {
+                const $modal = $(this);
+                const $form = $modal.find('.modal-content form');
+                $form.trigger("reset");
+                createStatusMessageHandler($form).hide();
+            });
         }
     });
 
-    $('#login-form').on('submit', createFormHandler('#login-form'));
-    $('#register-form').on('submit', createFormHandler('#register-form'));
-
-    $('#profile-form').on('submit', createFormHandler('#profile-form'));
-    $('#password-form').on('submit', createFormHandler('#password-form'));
+    $('.ajax-form').each(function () {
+        $(this).on('submit', createFormHandler(`#${$(this).attr('id')}`));
+    });
 
     $('.logout-link').on('click', function (event) {
         event.preventDefault();
@@ -135,4 +137,17 @@ $(document).ready(function () {
     }
 
     M.Tabs.init($('.tabs'), {})
+    M.Collapsible.init($('.collapsible'), {})
+
+    new Swiper('.swiper-container', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 });

@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 
-from . import forms, handlers
+from common import handlers
+from . import forms
 
 User = get_user_model()
 
@@ -81,8 +82,9 @@ class ChangePasswordView(LoginRequiredMixin, View):
 		form = self.form_class(request.user, request.POST)
 		
 		if form.is_valid():
-			user = form.save()
+			user = form.save(commit=False)
 			update_session_auth_hash(request, user)
+			user.save()
 			return JsonResponse({'success': True})
 		
 		error_message = handlers.handle_form_errors(form)

@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- CSS  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" media="screen,projection">
     <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
 </head>
@@ -85,7 +86,7 @@
 <div id="login-modal" class="modal">
     <div class="modal-content">
 
-        <form id="login-form" method="post" action="{% url 'login' %}">
+        <form id="login-form" class="ajax-form" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <h4 class="center-align">Login</h4>
             <div class="input-field">
@@ -109,7 +110,7 @@
 
 <div id="register-modal" class="modal">
     <div class="modal-content">
-        <form id="register-form" method="post" action="{% url 'register' %}">
+        <form id="register-form" class="ajax-form" method="post" action="{% url 'register' %}">
             {% csrf_token %}
             <h4 class="center-align">Register</h4>
             <div class="input-field">
@@ -142,6 +143,7 @@
 
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js" type="text/javascript"></script>
 <script src="{% static 'js/materialize.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
 </body>

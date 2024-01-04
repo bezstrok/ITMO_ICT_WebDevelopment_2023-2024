@@ -1,13 +1,17 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.urls import reverse_lazy
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.views.generic import ListView, RedirectView
+from django.views import View
+from django.views.generic import DetailView, ListView
 
-from .models import Tour
+from common import handlers
+from . import forms, models
 
 
 class TourListView(ListView):
-	model = Tour
+	model = models.Tour
 	paginate_by = 5
 	template_name = 'tours/explore.html'
 	
@@ -28,5 +32,27 @@ class TourListView(ListView):
 		return queryset
 
 
-class TourDetailView(RedirectView):
-	url = reverse_lazy('explore')
+class TourDetailView(DetailView):
+	model = models.Tour
+	template_name = 'tours/tour_detail.html'
+
+
+class AddReviewView(LoginRequiredMixin, View):
+	form_class = forms.ReviewForm
+	
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		
+		pk = kwargs.get('pk')
+		tour = get_object_or_404(models.Tour, pk=pk)
+		
+		if form.is_valid():
+			review = form.save(commit=False)
+			review.tour = tour
+			review.user = request.user
+			review.save()
+			return JsonResponse({'success': True})
+		
+		error_message = handlers.handle_form_errors(form)
+		
+		return JsonResponse({'error': error_message}, status=400)

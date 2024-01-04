@@ -17,7 +17,7 @@
             <div class="section">
 
                 <div id="general" class="col s12">
-                    <form id="profile-form" method="post" action="{% url 'update_profile' %}">
+                    <form id="profile-form" class="ajax-form" method="post" action="{% url 'update_profile' %}">
                         {% csrf_token %}
                         <div class="row">
                             {% for field in profile_form %}
@@ -43,7 +43,7 @@
                 </div>
 
                 <div id="password" class="col s12">
-                    <form id="password-form" method="post" action="{% url 'change_password' %}">
+                    <form id="password-form" class="ajax-form" method="post" action="{% url 'change_password' %}">
                         {% csrf_token %}
                         <div class="row">
                             {% for field in password_form %}
