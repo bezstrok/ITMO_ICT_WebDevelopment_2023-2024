@@ -1,13 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
 
-from common import handlers
-from . import forms, models
+from . import forms, mixins, models
 
 
 class TourListView(ListView):
@@ -37,22 +34,13 @@ class TourDetailView(DetailView):
 	template_name = 'tours/tour_detail.html'
 
 
-class AddReviewView(LoginRequiredMixin, View):
+class AddReviewView(LoginRequiredMixin, mixins.CreateObjectMixin, View):
 	form_class = forms.ReviewForm
-	
-	def post(self, request, *args, **kwargs):
-		form = self.form_class(request.POST)
-		
-		pk = kwargs.get('pk')
-		tour = get_object_or_404(models.Tour, pk=pk)
-		
-		if form.is_valid():
-			review = form.save(commit=False)
-			review.tour = tour
-			review.user = request.user
-			review.save()
-			return JsonResponse({'success': True})
-		
-		error_message = handlers.handle_form_errors(form)
-		
-		return JsonResponse({'error': error_message}, status=400)
+	model = models.Tour
+	related_name = 'tour'
+
+
+class AddBookingView(LoginRequiredMixin, mixins.CreateObjectMixin, View):
+	form_class = forms.BookingForm
+	model = models.Tour
+	related_name = 'tour'

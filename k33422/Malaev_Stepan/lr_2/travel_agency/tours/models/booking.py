@@ -23,9 +23,6 @@ class Booking(models.Model):
 	def clean(self):
 		if self.booking_date and self.booking_date < timezone.now():
 			raise ValidationError("Booking date cannot be in the past.")
-		
-		if self.booking_date > self.tour.start_date:
-			raise ValidationError("Booking cannot be made after the tour start date.")
 	
 	def save(self, *args, **kwargs):
 		self.clean()
@@ -54,3 +51,4 @@ class Booking(models.Model):
 		indexes = [
 			models.Index(fields=['user', 'tour']),
 		]
+		unique_together = ('user', 'tour')
