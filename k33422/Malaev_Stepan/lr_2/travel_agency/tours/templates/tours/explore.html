@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="center-align teal-text text-darken-2">Explore Tours</h1>
+
+        <!-- Форма Поиска -->
+        <form method="get">
+            <div class="row center">
+                <div class="row">
+                    <div class="input-field col l11 s11">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="search" name="search" value="{{ request.GET.search }}">
+                        <label for="search">Search Tours</label>
+                    </div>
+                    <div class="input-field col l1 s1">
+                        <button type="submit" class="btn waves-effect waves-light">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        {% if object_list %}
+            {% regroup object_list by country as country_list %}
+
+            {% for country in country_list %}
+                <h2 class="teal-text text-darken-2">{{ country.grouper }}</h2>
+                <div class="row">
+                    {% for tour in country.list %}
+                        <div class="col l4 m6 s12">
+                            <div class="card hoverable">
+                                <a href="{% url 'tour_detail' tour.id %}">
+                                    <div class="card-image waves-effect waves-block waves-light">
+                                        <img src="{{ MEDIA_URL }}{{ tour.images.all.first.image }}"
+                                             alt="{{ tour.name }}">
+                                    </div>
+                                </a>
+                                <div class="card-content teal lighten-2 white-text">
+                                    <span class="card-title activator">{{ tour.name }}<i
+                                            class="material-icons right">more_vert</i></span>
+                                    <p>{{ tour.description|truncatewords:20 }}</p>
+                                </div>
+                                <div class="card-reveal teal lighten-2 white-text">
+                                    <span class="card-title">{{ tour.name }}<i
+                                            class="material-icons right">close</i></span>
+                                    <h6>Agency: {{ tour.agency }}</h6>
+                                    <p><strong>Description:</strong> {{ tour.description }}</p>
+                                    <p><strong>Country:</strong> {{ tour.country }}</p>
+                                    <p><strong>Start Date:</strong> {{ tour.start_date|date:"M d, Y" }}</p>
+                                    <p><strong>End Date:</strong> {{ tour.end_date|date:"M d, Y" }}</p>
+                                    <p><strong>Duration:</strong> {{ tour.duration }} days</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                            </div>
+                            <div class="row">
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+            {% endfor %}
+        {% else %}
+            <p class="center-align">No tours found.</p>
+        {% endif %}
+
+        <!-- Пагинация -->
+        <div class="center-align">
+            <ul class="pagination">
+                {% if is_paginated %}
+                    {% if page_obj.has_previous %}
+                        <li class="waves-effect"><a
+                                href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page={{ page_obj.previous_page_number }}"><i
+                                class="material-icons">chevron_left</i></a></li>
+                    {% else %}
+                        <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+                    {% endif %}
+
+                    <li class="active teal"><a>{{ page_obj.number }}</a></li>
+
+                    {% if page_obj.has_next %}
+                        <li class="waves-effect"><a
+                                href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page={{ page_obj.next_page_number }}"><i
+                                class="material-icons">chevron_right</i></a></li>
+                    {% else %}
+                        <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
