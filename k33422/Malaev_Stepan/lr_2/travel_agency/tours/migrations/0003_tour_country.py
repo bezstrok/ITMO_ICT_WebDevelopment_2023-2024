@@ -4,11 +4,10 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('tours', '0002_booking'),
     ]
-
+    
     operations = [
         migrations.AddField(
             model_name='tour',

@@ -5,14 +5,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-	dependencies = [
-		('tours', '0005_tourimage'),
-		migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-	]
-	
-	operations = [
-		migrations.AlterUniqueTogether(
-			name='booking',
-			unique_together={('user', 'tour')},
-		),
-	]
+    dependencies = [
+        ('tours', '0005_tourimage'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
+    
+    operations = [
+        migrations.AlterUniqueTogether(
+            name='booking',
+            unique_together={('user', 'tour')},
+        ),
+    ]

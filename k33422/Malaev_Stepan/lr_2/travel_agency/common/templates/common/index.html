@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-            <div class="container">
-                <form action="{% url 'explore' %}" method="get">
-                    <div class="row center">
-                        <h2 class="center dynamic-header">Next <span></span></h2>
-                        <h5 class="col s12 light">Where will you go next?</h5>
-                        <div class="input-field col l11 s11">
-                            <i class="material-icons prefix">location_on</i>
-                            <input type="text" name="search" id="autocomplete-input" class="autocomplete">
-                            <label for="autocomplete-input">Next Destination</label>
-                        </div>
-                        <div class="input-field col l1 s1">
-                            <button class="btn waves-effect waves-light" type="submit">
-                                <i class="large material-icons">search</i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+    <div class="container">
+        <form action="{% url 'explore' %}" method="get">
+            <div class="row center">
+                <h2 class="center dynamic-header">Next <span></span></h2>
+                <h5 class="col s12 light">Where will you go next?</h5>
+                <div class="input-field col l11 s11">
+                    <i class="material-icons prefix">location_on</i>
+                    <input type="text" name="search" id="autocomplete-input" class="autocomplete">
+                    <label for="autocomplete-input">Next Destination</label>
+                </div>
+                <div class="input-field col l1 s1">
+                    <button class="btn waves-effect waves-light" type="submit">
+                        <i class="large material-icons">search</i>
+                    </button>
+                </div>
             </div>
-            <br><br>
+        </form>
+    </div>
+    <br><br>
 
     {% if recommended_tours %}
         <div class="container">
@@ -47,8 +47,8 @@
                                 <p><strong>Start Date:</strong> {{ tour.start_date|date:"M d, Y" }}</p>
                                 <p><strong>End Date:</strong> {{ tour.end_date|date:"M d, Y" }}</p>
                                 <p><strong>Duration:</strong> {{ tour.duration }} days</p>
-                                </div>
                             </div>
+                        </div>
                     </div>
                     {% if forloop.counter|divisibleby:3 and not forloop.last %}
                         </div>
