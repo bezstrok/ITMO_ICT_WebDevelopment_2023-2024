@@ -21,7 +21,7 @@ class Booking(models.Model):
 	booking_date = models.DateTimeField(auto_now_add=True)
 	
 	def clean(self):
-		if self.booking_date and self.booking_date < timezone.now():
+		if not self.pk and self.booking_date and self.booking_date < timezone.now():
 			raise ValidationError("Booking date cannot be in the past.")
 	
 	def save(self, *args, **kwargs):
@@ -30,11 +30,8 @@ class Booking(models.Model):
 	
 	def cancel(self):
 		with transaction.atomic():
-			if self.status == 'confirmed':
-				self.status = 'cancelled'
-				self.save()
-			else:
-				raise ValidationError("Only confirmed bookings can be cancelled.")
+			self.status = 'cancelled'
+			self.save()
 	
 	def confirm(self):
 		with transaction.atomic():

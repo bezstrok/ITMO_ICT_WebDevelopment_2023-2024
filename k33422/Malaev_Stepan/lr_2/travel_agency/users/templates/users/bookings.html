@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="center-align teal-text">My Bookings</h1>
+        <ul class="collection">
+            {% for booking in bookings %}
+                <li class="collection-item avatar">
+                    <a href="{% url 'tour_detail' booking.tour.id %}">
+                        <img src="{{ MEDIA_URL }}{{ booking.tour.images.all.first.image }}" alt="" class="circle">
+                    </a>
+                    <span class="title"><strong>{{ booking.tour.name }}</strong></span>
+                    <p>
+                        <i class="material-icons tiny">date_range</i>
+                        {{ booking.tour.start_date|date:"M d, Y" }} to {{ booking.tour.end_date|date:"M d, Y" }}<br>
+                        <i class="material-icons tiny">info_outline</i>
+                        <span class="{% if booking.status == 'confirmed' %}green-text{% elif booking.status == 'cancelled' %}red-text{% else %}amber-text{% endif %}">
+                            {{ booking.status|title }}
+                        </span>
+                    </p>
+                    <div class="secondary-content">
+                        <a href="#"
+                           class="btn-small red waves-effect waves-light modal-trigger cancel-booking-trigger {% if booking.status == 'cancelled' %}disabled{% endif %}"
+                           data-target="cancel-booking-modal"
+                           data-booking-id="{{ booking.id }}">
+                            <i class="material-icons right">cancel</i>Cancel
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Cancel Booking Modal -->
+    <div id="cancel-booking-modal" class="modal">
+        <div class="modal-content">
+            <form id="cancel-booking-form" class="ajax-form" method="post" action="{% url 'cancel_booking' %}">
+                {% csrf_token %}
+                <h4 class="center-align">Confirm Cancellation</h4>
+                <p class="flow-text">
+                    Are you sure you want to cancel this booking?
+                    <br>
+                    This action cannot be undone!
+                </p>
+                <input type="hidden" id="booking-id" name="booking_id">
+                <div class="form-status section">
+                    <div class="circle-loader">
+                        <div class="status draw"></div>
+                    </div>
+                    <div class="message"></div>
+                </div>
+                <button type="submit" class="btn red waves-effect waves-light">Yes, Cancel Booking</button>
+                <a href="#" class="modal-close waves-effect waves-green btn ">No, Go Back</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

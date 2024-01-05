@@ -52,7 +52,8 @@
                 </div>
 
                 <div class="card-action">
-                    <button class="btn waves-effect waves-light modal-trigger" href="#booking-modal">Book Now</button>
+                    <button class="btn waves-effect waves-light modal-trigger" href="#add-booking-modal">Book Now
+                    </button>
                 </div>
             </div>
 
@@ -109,9 +110,9 @@
     </div>
 
     <!-- Add Booking Modal -->
-    <div id="booking-modal" class="modal">
+    <div id="add-booking-modal" class="modal">
         <div class="modal-content">
-            <form id="booking-form" class="ajax-form" method="post" action="{% url 'add_booking' tour.id %}">
+            <form id="add-booking-form" class="ajax-form" method="post" action="{% url 'add_booking' tour.id %}">
                 {% csrf_token %}
                 <h4 class="center-align">Book Your Tour</h4>
                 <div class="input-field">

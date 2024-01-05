@@ -150,4 +150,8 @@ $(document).ready(function () {
             prevEl: '.swiper-button-prev',
         },
     });
+
+    $('.cancel-booking-trigger').on('click', function () {
+        $('#booking-id').val($(this).data('booking-id'));
+    });
 });

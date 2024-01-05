@@ -10,4 +10,7 @@ urlpatterns = [
 	path('settings/', views.SettingsView.as_view(), name='settings'),
 	path('settings/update-profile/', views.UpdateProfileView.as_view(), name='update_profile'),
 	path('settings/change-password/', views.ChangePasswordView.as_view(), name='change_password'),
+	
+	path('bookings/', views.BookingsView.as_view(), name='bookings'),
+	path('bookings/cancel', views.CancelBookingView.as_view(), name='cancel_booking'),
 ]
