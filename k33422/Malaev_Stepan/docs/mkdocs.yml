@@ -1,0 +1,15 @@
+site_name: Документация
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - lr_1:
+      - Task_1:
+      - Task_2:
+      - Task_3:
+      - Task_4:
+      - Task_5:
+  - lr_2:
+  - lr_3:
