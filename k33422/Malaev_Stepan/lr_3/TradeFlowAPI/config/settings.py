@@ -15,6 +15,9 @@ DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS').split()
 
+# User model
+AUTH_USER_MODEL = 'users.User'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -35,7 +38,7 @@ INSTALLED_APPS += [
 # Apps
 
 INSTALLED_APPS += [
-
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
