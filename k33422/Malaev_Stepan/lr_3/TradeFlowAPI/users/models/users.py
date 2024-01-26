@@ -1,8 +1,5 @@
-import uuid
-
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
-from django.core.mail import send_mail
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -42,38 +39,10 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
     
-    is_active = models.BooleanField(
-        _("active"),
-        default=False,
-        help_text=_(
-            "Designates whether this user should be treated as active. "
-            "Unselect this instead of deleting accounts."
-        ),
-    )
-    
-    confirmation_code = models.CharField(max_length=6, blank=True)
-    
     objects = UserManager()
     
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
-    
-    def send_confirmation_email(self):
-        self.confirmation_code = str(uuid.uuid4())[:6]
-        self.save()
-        send_mail(
-            'Подтверждение Email',
-            f'Ваш код подтверждения: {self.confirmation_code}',
-            'from@example.com',
-            [self.email],
-            fail_silently=False,
-        )
-    
-    def confirm_email(self, code):
-        if self.confirmation_code == code:
-            self.is_active = True
-            self.confirmation_code = ''
-            self.save()
     
     @property
     def full_name(self):
