@@ -51,8 +51,6 @@ class User(AbstractUser):
         ),
     )
     
-    firm_name = models.CharField(_("firm name"), max_length=100, blank=True)
-    
     confirmation_code = models.CharField(max_length=6, blank=True)
     
     objects = UserManager()

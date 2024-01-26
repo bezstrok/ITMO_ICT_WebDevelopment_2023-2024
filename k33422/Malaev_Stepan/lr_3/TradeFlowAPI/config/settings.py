@@ -38,7 +38,8 @@ INSTALLED_APPS += [
 # Apps
 
 INSTALLED_APPS += [
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'trade.apps.TradeConfig'
 ]
 
 MIDDLEWARE = [
