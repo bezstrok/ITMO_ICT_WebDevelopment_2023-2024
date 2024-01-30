@@ -17,7 +17,7 @@ DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS').split()
 
 # User model
-# AUTH_USER_MODEL = 'backend.user.User'
+AUTH_USER_MODEL = 'user.User'
 
 # Application definition
 
@@ -40,10 +40,11 @@ INSTALLED_APPS += [
 # Apps
 
 INSTALLED_APPS += [
-    'backend.user',
     'backend.broker',
     'backend.manufacturer',
     'backend.product',
+    'backend.trade',
+    'backend.user',
     'backend.utils',
 ]
 
@@ -132,8 +133,8 @@ SIMPLE_JWT = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user': 'users.serializers.UserSerializer',
-        'current_user': 'users.serializers.UserSerializer',
+        'user': 'backend.user.serializers.UserSerializer',
+        'current_user': 'backend.user.serializers.UserSerializer',
     },
 }
 
