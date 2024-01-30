@@ -17,7 +17,7 @@ DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS').split()
 
 # User model
-AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'backend.user.User'
 
 # Application definition
 
@@ -40,8 +40,11 @@ INSTALLED_APPS += [
 # Apps
 
 INSTALLED_APPS += [
-    'users.apps.UsersConfig',
-    'trade.apps.TradeConfig',
+    'backend.user',
+    'backend.broker',
+    'backend.manufacturer',
+    'backend.product',
+    'backend.utils',
 ]
 
 MIDDLEWARE = [
