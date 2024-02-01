@@ -13,13 +13,16 @@ class Firm(AbstractTimeStampedModel):
     
     def __str__(self):
         return f"{self.name}"
+    
+    def get_brokers_count(self):
+        return self.brokers.all().count()
 
 
 class Broker(AbstractTimeStampedModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="broker")
     profit_percentage = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(100.0)])
     fixed_monthly_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    firm = models.ForeignKey(Firm, on_delete=models.CASCADE)
+    firm = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='brokers')
     
     def __str__(self):
         return f"{self.user}"

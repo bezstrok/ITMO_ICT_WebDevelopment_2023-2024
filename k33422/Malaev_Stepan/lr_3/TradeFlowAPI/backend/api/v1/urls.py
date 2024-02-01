@@ -1,6 +1,7 @@
 from django.urls import include, path
 
 urlpatterns = [
-    path('', include('djoser.urls')),
-    path('', include('djoser.urls.jwt')),
+    path('auth/', include('backend.api.v1.user.urls')),
+    path('brokers/', include('backend.api.v1.broker.urls')),
+    path('firms/', include('backend.api.v1.firm.urls')),
 ]

@@ -52,5 +52,5 @@ class CurrentUserSerializer(serializers.ModelSerializer):
 class PublicUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email')
+        fields = ('id', 'email', 'first_name', 'last_name')
         read_only_fields = ('email',)
