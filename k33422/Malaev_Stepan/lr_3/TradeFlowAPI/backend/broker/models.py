@@ -14,7 +14,8 @@ class Firm(AbstractTimeStampedModel):
     def __str__(self):
         return f"{self.name}"
     
-    def get_brokers_count(self):
+    @property
+    def brokers_count(self):
         return self.brokers.all().count()
 
 
