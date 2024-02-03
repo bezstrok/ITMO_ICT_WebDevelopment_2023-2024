@@ -1,20 +1,26 @@
 from rest_framework import serializers
 
-from backend.api.v1.broker.serializers import BrokerSerializer
-from backend.broker.models import Firm
+from backend.broker.models import Broker, Firm
+
+
+class FirmBrokerSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='user.email', read_only=True)
+    full_name = serializers.CharField(source='user.full_name', read_only=True)
+    
+    class Meta:
+        model = Broker
+        fields = ('id', 'profit_percentage', 'fixed_monthly_amount', 'email', 'full_name')
 
 
 class FirmDetailSerializer(serializers.ModelSerializer):
-    brokers = BrokerSerializer(read_only=True, many=True)
+    brokers = FirmBrokerSerializer(read_only=True, many=True)
     
     class Meta:
         model = Firm
-        fields = ['id', 'name', 'address', 'brokers']
+        fields = ('id', 'name', 'address', 'brokers_count', 'brokers')
 
 
 class FirmListSerializer(serializers.ModelSerializer):
-    brokers_count = serializers.IntegerField(source='get_brokers_count', read_only=True)
-    
     class Meta:
         model = Firm
-        fields = ['id', 'name', 'address', 'brokers_count']
+        fields = ('id', 'name', 'address', 'brokers_count')
