@@ -50,5 +50,13 @@ class User(AbstractUser):
             return f"{self.first_name} {self.last_name}"
         return "Unknown"
     
+    @property
+    def is_broker(self):
+        return hasattr(self, 'broker')
+    
+    @property
+    def is_manufacturer(self):
+        return hasattr(self, 'manufacturer')
+    
     def __str__(self):
         return f"{self.full_name} {self.email}"

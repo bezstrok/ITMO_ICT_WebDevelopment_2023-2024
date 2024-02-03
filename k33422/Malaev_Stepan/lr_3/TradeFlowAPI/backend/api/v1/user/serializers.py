@@ -7,35 +7,35 @@ from backend.manufacturer.models import Manufacturer
 User = get_user_model()
 
 
-class ManufacturerSerializer(serializers.ModelSerializer):
+class UserManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manufacturer
-        fields = ['id', 'address', 'contact_info']
+        fields = ('id', 'address', 'contact_info')
 
 
-class FirmSerializer(serializers.ModelSerializer):
+class UserBrokerFirmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Firm
-        fields = ['id', 'name', 'address']
+        fields = ('id', 'name')
 
 
-class BrokerSerializer(serializers.ModelSerializer):
-    firm = FirmSerializer(read_only=True)
+class UserBrokerSerializer(serializers.ModelSerializer):
+    firm = UserBrokerFirmSerializer(read_only=True)
     
     class Meta:
         model = Broker
-        fields = ['id', 'profit_percentage', 'fixed_monthly_amount', 'firm']
+        fields = ('id', 'profit_percentage', 'fixed_monthly_amount', 'firm')
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):
-    roles_serializers = [BrokerSerializer, ManufacturerSerializer]
-    
     roles = serializers.SerializerMethodField()
+    
+    roles_serializers = (UserBrokerSerializer, UserManufacturerSerializer)
     
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'roles')
-        read_only_fields = ('email',)
+        fields = ('id', 'email', 'first_name', 'last_name', 'is_broker', 'is_manufacturer', 'roles')
+        read_only_fields = ('email', 'is_broker', 'is_manufacturer')
     
     def get_roles(self, obj):
         data = {}
@@ -52,5 +52,5 @@ class CurrentUserSerializer(serializers.ModelSerializer):
 class PublicUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name')
-        read_only_fields = ('email',)
+        fields = ('id', 'email', 'full_name', 'is_broker', 'is_manufacturer')
+        read_only_fields = ('email', 'is_broker', 'is_manufacturer')
