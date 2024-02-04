@@ -9,7 +9,7 @@ from backend.utils.models import (
 
 
 class Product(AbstractTimeStampedModel):
-    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=100)
     unique_code = models.CharField(max_length=50, unique=True)
     category = models.CharField(max_length=100)
@@ -20,7 +20,7 @@ class Product(AbstractTimeStampedModel):
     
     def is_expired(self):
         expiry_date = self.production_date + datetime.timedelta(days=self.warranty_period)
-        return datetime.date.today() > expiry_date
+        return timezone.now().date() > expiry_date
     
     def __str__(self):
         return f"{self.name} {self.weight} {self.measurement_unit}"

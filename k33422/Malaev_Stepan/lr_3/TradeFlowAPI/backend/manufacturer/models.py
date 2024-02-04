@@ -9,5 +9,9 @@ class Manufacturer(models.Model):
     address = models.TextField()
     contact_info = models.TextField()
     
+    @property
+    def products_count(self):
+        return self.products.all().count()
+    
     def __str__(self):
         return f"{self.user}"

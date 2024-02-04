@@ -18,12 +18,6 @@ class RetrieveBrokerFirmSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'address', 'brokers_count')
 
 
-class ListBrokerFirmSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Firm
-        fields = ('id', 'name')
-
-
 class RetrieveBrokerSerializer(serializers.ModelSerializer):
     user = BrokerUserSerializer(read_only=True)
     firm = RetrieveBrokerFirmSerializer(read_only=True)
@@ -44,7 +38,7 @@ class CRUDBrokerSerializer(serializers.ModelSerializer):
 class ListBrokersSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email', read_only=True)
     full_name = serializers.CharField(source='user.full_name', read_only=True)
-    firm = ListBrokerFirmSerializer(read_only=True)
+    firm = serializers.SlugRelatedField(slug_field='name', read_only=True)
     
     class Meta:
         model = Broker
