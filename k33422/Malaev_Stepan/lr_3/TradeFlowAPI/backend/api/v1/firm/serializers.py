@@ -9,7 +9,10 @@ class FirmBrokerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Broker
-        fields = ('id', 'profit_percentage', 'fixed_monthly_amount', 'email', 'full_name')
+        fields = (
+            'id', 'profit_percentage', 'fixed_monthly_amount',
+            'email', 'full_name'
+        )
 
 
 class FirmDetailSerializer(serializers.ModelSerializer):
@@ -17,10 +20,16 @@ class FirmDetailSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Firm
-        fields = ('id', 'name', 'address', 'brokers_count', 'brokers')
+        fields = (
+            'id', 'name', 'address',
+            'brokers_count', 'brokers'
+        )
 
 
 class FirmListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Firm
-        fields = ('id', 'name', 'address', 'brokers_count')
+        fields = (
+            'id', 'name', 'address',
+            'brokers_count'
+        )

@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 from backend.api.v1.core.mixins import ActionMeMixin
-from backend.api.v1.core.permissions import IsUserRole
+from backend.api.v1.core.permissions import IsUserRoleObject
 from backend.api.v1.core.viewsets import SpecificModelViewSet
 from backend.api.v1.manufacturer.serializers import (
     CRUDManufacturerSerializer,
@@ -19,7 +19,7 @@ class ManufacturerViewSet(ActionMeMixin, SpecificModelViewSet):
         'list': ListManufacturerSerializer,
     }
     
-    permission_classes = [permissions.IsAuthenticated, IsUserRole]
+    permission_classes = [permissions.IsAuthenticated, IsUserRoleObject]
     
     def perform_create(self, serializer):
         if self.queryset.filter(user=self.request.user).exists():

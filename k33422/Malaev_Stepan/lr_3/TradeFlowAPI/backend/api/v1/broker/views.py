@@ -8,7 +8,7 @@ from backend.api.v1.broker.serializers import (
     RetrieveBrokerSerializer
 )
 from backend.api.v1.core.mixins import ActionMeMixin
-from backend.api.v1.core.permissions import IsUserRole
+from backend.api.v1.core.permissions import IsUserRoleObject
 from backend.api.v1.core.viewsets import SpecificModelViewSet
 from backend.broker.models import Broker
 
@@ -21,7 +21,7 @@ class BrokerViewSet(ActionMeMixin, SpecificModelViewSet):
         'list': ListBrokersSerializer
     }
     
-    permission_classes = [permissions.IsAuthenticated, IsUserRole]
+    permission_classes = [permissions.IsAuthenticated, IsUserRoleObject]
     
     def perform_create(self, serializer):
         if self.queryset.filter(user=self.request.user).exists():

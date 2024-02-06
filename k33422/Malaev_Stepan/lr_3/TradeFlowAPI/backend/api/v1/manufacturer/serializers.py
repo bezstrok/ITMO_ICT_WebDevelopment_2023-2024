@@ -9,7 +9,9 @@ User = get_user_model()
 class ManufacturerUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'full_name', 'email')
+        fields = (
+            'id', 'full_name', 'email'
+        )
 
 
 class RetrieveManufacturerSerializer(serializers.ModelSerializer):
@@ -17,7 +19,10 @@ class RetrieveManufacturerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Manufacturer
-        fields = ('id', 'address', 'contact_info', 'user', 'products_count')
+        fields = (
+            'id', 'firm_name', 'address',
+            'contact_info', 'user', 'products_count'
+        )
 
 
 class ListManufacturerSerializer(serializers.ModelSerializer):
@@ -26,10 +31,17 @@ class ListManufacturerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Manufacturer
-        fields = ('id', 'address', 'contact_info', 'email', 'full_name', 'products_count')
+        fields = (
+            'id', 'firm_name', 'address',
+            'contact_info', 'email', 'full_name',
+            'products_count'
+        )
 
 
 class CRUDManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manufacturer
-        fields = ('id', 'address', 'contact_info')
+        fields = (
+            'id', 'firm_name', 'address',
+            'contact_info'
+        )

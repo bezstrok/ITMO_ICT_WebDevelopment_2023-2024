@@ -9,13 +9,18 @@ User = get_user_model()
 class BrokerUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'full_name', 'email')
+        fields = (
+            'id', 'full_name', 'email'
+        )
 
 
 class RetrieveBrokerFirmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Firm
-        fields = ('id', 'name', 'address', 'brokers_count')
+        fields = (
+            'id', 'name', 'address',
+            'brokers_count'
+        )
 
 
 class RetrieveBrokerSerializer(serializers.ModelSerializer):
@@ -24,7 +29,10 @@ class RetrieveBrokerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Broker
-        fields = ('id', 'profit_percentage', 'fixed_monthly_amount', 'user', 'firm')
+        fields = (
+            'id', 'profit_percentage', 'fixed_monthly_amount',
+            'user', 'firm'
+        )
 
 
 class CRUDBrokerSerializer(serializers.ModelSerializer):
@@ -32,7 +40,10 @@ class CRUDBrokerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Broker
-        fields = ('id', 'profit_percentage', 'fixed_monthly_amount', 'firm')
+        fields = (
+            'id', 'profit_percentage', 'fixed_monthly_amount',
+            'firm'
+        )
 
 
 class ListBrokersSerializer(serializers.ModelSerializer):
@@ -42,4 +53,7 @@ class ListBrokersSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Broker
-        fields = ('id', 'profit_percentage', 'fixed_monthly_amount', 'email', 'full_name', 'firm')
+        fields = (
+            'id', 'profit_percentage', 'fixed_monthly_amount',
+            'email', 'full_name', 'firm'
+        )

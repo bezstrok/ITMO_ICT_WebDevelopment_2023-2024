@@ -10,13 +10,18 @@ User = get_user_model()
 class UserManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manufacturer
-        fields = ('id', 'address', 'contact_info')
+        fields = (
+            'id', 'firm_name', 'address',
+            'contact_info'
+        )
 
 
 class UserBrokerFirmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Firm
-        fields = ('id', 'name')
+        fields = (
+            'id', 'name'
+        )
 
 
 class UserBrokerSerializer(serializers.ModelSerializer):
@@ -24,7 +29,10 @@ class UserBrokerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Broker
-        fields = ('id', 'profit_percentage', 'fixed_monthly_amount', 'firm')
+        fields = (
+            'id', 'profit_percentage', 'fixed_monthly_amount',
+            'firm'
+        )
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):
@@ -34,8 +42,14 @@ class CurrentUserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'is_broker', 'is_manufacturer', 'roles')
-        read_only_fields = ('email', 'is_broker', 'is_manufacturer')
+        fields = (
+            'id', 'email', 'first_name',
+            'last_name', 'is_broker', 'is_manufacturer',
+            'roles'
+        )
+        read_only_fields = (
+            'email', 'is_broker', 'is_manufacturer'
+        )
     
     def get_roles(self, obj):
         data = {}
@@ -52,5 +66,10 @@ class CurrentUserSerializer(serializers.ModelSerializer):
 class PublicUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'full_name', 'is_broker', 'is_manufacturer')
-        read_only_fields = ('email', 'is_broker', 'is_manufacturer')
+        fields = (
+            'id', 'email', 'full_name',
+            'is_broker', 'is_manufacturer'
+        )
+        read_only_fields = (
+            'email', 'is_broker', 'is_manufacturer'
+        )
