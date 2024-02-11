@@ -1,17 +1,18 @@
 from django.db.models.functions import Now
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 
-from backend.api.v1.core.permissions import (
-    IsUserManufacturer,
-    IsUserManufacturerObject
-)
+from backend.api.v1.core.permissions import (IsProductBatchAvailable, IsUserManufacturer,
+                                             IsUserManufacturerNestedProduct, IsUserManufacturerObject)
 from backend.api.v1.core.viewsets import SpecificModelViewSet
-from backend.api.v1.product.serializers import (
-    CRUDProductSerializer,
-    ListProductsSerializer,
-    RetrieveProductSerializer
+from backend.api.v1.product.serializers import (CRUDProductBatchSerializer, CRUDProductSerializer,
+                                                ListProductBatchSerializer,
+                                                ListProductsSerializer, RetrieveProductBatchSerializer,
+                                                RetrieveProductSerializer)
+from backend.product.models import (
+    Product,
+    ProductBatch
 )
-from backend.product.models import Product
 
 
 class ProductViewSet(SpecificModelViewSet):
@@ -32,3 +33,29 @@ class ProductViewSet(SpecificModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(manufacturer=self.request.user.manufacturer)
+
+
+class ProductBatchViewSet(SpecificModelViewSet):
+    queryset = ProductBatch.objects.all()
+    serializer_class = CRUDProductBatchSerializer
+    serializer_classes_by_action = {
+        'retrieve': RetrieveProductBatchSerializer,
+        'list': ListProductBatchSerializer,
+    }
+    
+    permission_classes_common = [permissions.IsAuthenticated]
+    permission_classes_by_action = {
+        'create': [IsUserManufacturerNestedProduct],
+        'update': [IsUserManufacturerNestedProduct, IsProductBatchAvailable],
+        'partial_update': [IsUserManufacturerNestedProduct, IsProductBatchAvailable],
+        'destroy': [IsUserManufacturerNestedProduct, IsProductBatchAvailable]
+    }
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(product=self.get_product())
+    
+    def get_product(self):
+        return get_object_or_404(Product, pk=self.kwargs.get('product_pk'))
+    
+    def perform_create(self, serializer):
+        serializer.save(product=self.get_product())
