@@ -17,6 +17,7 @@ from backend.product.models import (
 
 class ProductViewSet(SpecificModelViewSet):
     queryset = Product.objects.select_related('manufacturer').filter(expiry_date__gte=Now())
+    
     serializer_class = CRUDProductSerializer
     serializer_classes_by_action = {
         'retrieve': RetrieveProductSerializer,
@@ -37,6 +38,7 @@ class ProductViewSet(SpecificModelViewSet):
 
 class ProductBatchViewSet(SpecificModelViewSet):
     queryset = ProductBatch.objects.all()
+    
     serializer_class = CRUDProductBatchSerializer
     serializer_classes_by_action = {
         'retrieve': RetrieveProductBatchSerializer,

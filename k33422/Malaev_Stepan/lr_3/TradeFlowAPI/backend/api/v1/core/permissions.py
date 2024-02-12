@@ -28,3 +28,23 @@ class IsUserManufacturerNestedProduct(IsUserManufacturer, BasePermission):
 class IsProductBatchAvailable(BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.is_available
+
+
+class IsUserBroker(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_broker
+
+
+class IsUserBrokerObject(IsUserBroker, BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.broker == request.user.broker
+
+
+class IsTradeChangeable(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return not obj.is_closed
+
+
+class IsTradeProductBatchAvailable(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.product_batch.is_available
