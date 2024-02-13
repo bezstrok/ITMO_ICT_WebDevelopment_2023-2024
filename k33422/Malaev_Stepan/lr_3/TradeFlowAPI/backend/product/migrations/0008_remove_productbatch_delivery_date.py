@@ -4,11 +4,10 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('product', '0007_remove_productbatch_batch_number_and_more'),
     ]
-
+    
     operations = [
         migrations.RemoveField(
             model_name='productbatch',
