@@ -55,4 +55,4 @@ class ProductBatch(AbstractTimeStampedModel):
         return not self.trades.filter(status__in=TradeStatus.unavailable()).exists()
     
     def __str__(self):
-        return f"{self.product} - {self.quantity} p"
+        return f"{self.product} - {self.quantity} pieces"
