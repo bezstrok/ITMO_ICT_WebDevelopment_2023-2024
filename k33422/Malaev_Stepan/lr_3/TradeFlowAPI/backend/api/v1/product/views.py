@@ -38,7 +38,7 @@ class ProductViewSet(SpecificModelViewSet):
     filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
     filterset_class = ProductFilter
     ordering = ('expiry_date', 'expiry_date', 'weight', 'name', 'id')
-    search_fields = ('^name', '=unique_code')
+    search_fields = ('name', '=unique_code')
     
     def perform_create(self, serializer):
         serializer.save(manufacturer=self.request.user.manufacturer)
