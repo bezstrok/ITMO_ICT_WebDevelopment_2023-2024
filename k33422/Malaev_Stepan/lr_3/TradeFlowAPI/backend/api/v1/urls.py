@@ -1,5 +1,7 @@
 from django.urls import include, path
 
+app_name = 'v1'
+
 urlpatterns = [
     path('auth/', include('backend.api.v1.user.urls')),
     path('brokers/', include('backend.api.v1.broker.urls')),

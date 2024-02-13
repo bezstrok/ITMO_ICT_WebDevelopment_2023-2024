@@ -118,7 +118,21 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    
+    'DATETIME_FORMAT': '%d.%m.%Y %H:%M:%S',
+    'DATETIME_INPUT_FORMATS': ('%d.%m.%Y %H:%M:%S', '%d-%m-%Y %H:%M:%S', 'iso-8601'),
+    
+    'DATE_FORMAT': '%d.%m.%Y',
+    'DATE_INPUT_FORMATS': ('%d.%m.%Y', '%d-%m-%Y', 'iso-8601'),
+    
+    'DEFAULT_VERSION': 'v1',
+    'ALLOWED_VERSIONS': ('v1',),
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
 }
 
 # JWT
