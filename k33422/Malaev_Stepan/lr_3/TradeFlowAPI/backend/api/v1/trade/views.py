@@ -1,10 +1,20 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
+from rest_framework.filters import OrderingFilter
 
-from backend.api.v1.core.permissions import (IsTradeChangeable, IsUserBroker,
-                                             IsUserBrokerObject)
+from backend.api.v1.core.permissions import (
+    IsTradeChangeable,
+    IsUserBroker,
+    IsUserBrokerObject
+)
 from backend.api.v1.core.viewsets import SpecificModelViewSet
-from backend.api.v1.trade.serializers import (CreateTradeSerializer, ListTradeSerializer, RetrieveTradeSerializer,
-                                              UpdateDeleteTradeSerializer)
+from backend.api.v1.trade.filters import TradeFilter
+from backend.api.v1.trade.serializers import (
+    CreateTradeSerializer,
+    ListTradeSerializer,
+    RetrieveTradeSerializer,
+    UpdateDeleteTradeSerializer
+)
 from backend.trade.models import Trade
 
 
@@ -25,6 +35,10 @@ class TradeViewSet(SpecificModelViewSet):
         'partial_update': [IsUserBrokerObject, IsTradeChangeable],
         'destroy': [IsUserBrokerObject],
     }
+    
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_class = TradeFilter
+    ordering = ('product_batch', 'broker', 'status', 'id')
     
     def perform_create(self, serializer):
         serializer.save(broker=self.request.user.broker)
