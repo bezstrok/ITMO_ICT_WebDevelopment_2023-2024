@@ -44,7 +44,9 @@ class ListProductsSerializer(serializers.ModelSerializer):
         model = Product
         fields = (
             'id', 'name', 'unique_code',
-            'category', 'manufacturer', 'batches_count'
+            'category', 'weight', 'production_date',
+            'expiry_date', 'measurement_unit', 'manufacturer',
+            'batches_count',
         )
 
 

@@ -38,7 +38,7 @@ class TradeViewSet(SpecificModelViewSet):
     
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filterset_class = TradeFilter
-    ordering = ('product_batch', 'broker', 'status', 'id')
+    ordering = ('product_batch', 'status', 'broker', 'id')
     
     def perform_create(self, serializer):
         serializer.save(broker=self.request.user.broker)
