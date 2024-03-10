@@ -15,7 +15,6 @@
         <v-toolbar flat color="white">
           <v-toolbar-title>Trades Overview</v-toolbar-title>
           <v-spacer></v-spacer>
-          <!-- You can add additional toolbar items here -->
         </v-toolbar>
       </template>
       <template v-slot:item="{ item }">
@@ -86,27 +85,26 @@ export default {
 <style scoped>
 .elevation-1 {
   border-radius: 8px;
-  overflow: hidden; /* Ensures the table respects the border-radius */
+  overflow: hidden;
 }
 
-/* Style adjustments for the table headers and cells for better spacing and legibility */
 .v-data-table-header th {
-  background-color: #F5F5F5; /* Light grey background for the header */
-  color: #424242; /* Dark grey color for header text */
+  background-color: #F5F5F5;
+  color: #424242;
   font-weight: bold;
 }
 
 .v-data-table .v-data-table__wrapper table {
   border-collapse: separate;
-  border-spacing: 0 10px; /* Adds spacing between rows */
+  border-spacing: 0 10px;
 }
 
 .v-data-table .v-data-table__wrapper table tbody tr {
-  background-color: #FFFFFF; /* Ensures row background is white */
+  background-color: #FFFFFF;
 }
 
 .v-chip {
-  font-size: 0.875rem; /* Adjust chip font size for better readability */
+  font-size: 0.875rem;
 }
 
 </style>

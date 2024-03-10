@@ -4,6 +4,8 @@ import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import TradesView from "@/views/TradesView.vue";
 import TradeDetailView from "@/views/TradeDetailView.vue";
+import ProductsView from "@/views/ProductsView.vue";
+import ProductDetail from "@/views/ProductDetail.vue";
 
 const routes = [
     {
@@ -31,7 +33,18 @@ const routes = [
         name: 'TradeDetail',
         component: TradeDetailView,
         props: true
-    }
+    },
+    {
+        path: '/products',
+        name: 'Products',
+        component: ProductsView
+    },
+    {
+        path: '/products/:id',
+        name: 'ProductDetail',
+        component: ProductDetail,
+        props: true
+    },
 ]
 
 const router = createRouter({

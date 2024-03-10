@@ -19,10 +19,10 @@
             <v-list-item to="/profile">
               <v-list-item-title>My Profile</v-list-item-title>
             </v-list-item>
-            <v-list-item v-if="isBroker" to="/broker">
+            <v-list-item to="/broker">
               <v-list-item-title>Broker</v-list-item-title>
             </v-list-item>
-            <v-list-item v-if="isManufacturer" to="/manufacturer">
+            <v-list-item to="/manufacturer">
               <v-list-item-title>Manufacturer</v-list-item-title>
             </v-list-item>
             <v-list-item @click="logout">
@@ -55,7 +55,7 @@ import {mapGetters, mapActions} from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'isBroker', 'isManufacturer']),
+    ...mapGetters('auth', ['isAuthenticated']),
   },
   methods: {
     ...mapActions('auth', ['logout']),
