@@ -97,7 +97,7 @@ export default {
     async onLogin() {
       try {
         await this.login(this.loginForm);
-        // this.$router.push({name: 'dashboard'}); // Redirect to dashboard or home page
+        this.$router.push({name: 'Trades'});
       } catch (error) {
         console.error(error);
       }

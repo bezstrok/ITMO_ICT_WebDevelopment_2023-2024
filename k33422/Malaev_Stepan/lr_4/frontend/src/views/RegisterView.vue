@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import {mapActions, mapState} from 'vuex';
 
 export default {
   data() {
@@ -82,6 +82,7 @@ export default {
     async onRegister() {
       try {
         await this.register(this.registerForm);
+        this.$router.push({name: 'Trades'});
       } catch (error) {
         console.error(error);
       }
@@ -97,15 +98,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.v-toolbar {
-  border-radius: 4px 4px 0 0;
-}
-
-.v-btn {
-  height: 48px;
-  padding: 0 25px;
 }
 
 .register-link {

@@ -24,9 +24,11 @@ const actions = {
                 commit('auth_success', token);
                 await this.dispatch('fetchUser');
                 commit('set_auth_error', null);
+                return Promise.resolve();
             }
         } catch (error) {
             commit('set_auth_error', error.response.data.detail || 'Login failed');
+            return Promise.reject(error);
         }
     },
     async fetchUser({commit}) {
@@ -46,9 +48,10 @@ const actions = {
                 email: user.email,
                 password: user.password,
             });
-            return response;
+            return Promise.resolve();
         } catch (error) {
             commit('set_auth_error', error.response.data.detail || 'Register failed');
+            return Promise.reject(error);
         }
     },
 };

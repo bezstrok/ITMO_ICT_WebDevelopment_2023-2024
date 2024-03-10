@@ -75,7 +75,6 @@ export default {
       return 'grey';
     },
     goToTradeDetail(item) {
-      console.log(item);
       this.$router.push({name: 'TradeDetail', params: {id: item.id}});
     },
   },

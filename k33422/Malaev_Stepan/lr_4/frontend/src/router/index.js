@@ -6,6 +6,8 @@ import TradesView from "@/views/TradesView.vue";
 import TradeDetailView from "@/views/TradeDetailView.vue";
 import ProductsView from "@/views/ProductsView.vue";
 import ProductDetail from "@/views/ProductDetail.vue";
+import ProfileView from "@/views/ProfileView.vue";
+import BrokerProfile from "@/views/BrokerProfile.vue";
 
 const routes = [
     {
@@ -44,6 +46,16 @@ const routes = [
         name: 'ProductDetail',
         component: ProductDetail,
         props: true
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: ProfileView
+    },
+    {
+        path: '/broker',
+        name: 'Broker',
+        component: BrokerProfile
     },
 ]
 
