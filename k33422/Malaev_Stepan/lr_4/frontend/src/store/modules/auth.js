@@ -3,22 +3,30 @@ import api from "@/api";
 const state = {
     user: null,
     token: localStorage.getItem('token') || '',
+    authError: null,
 };
 
 const getters = {
     isAuthenticated: state => !!state.token,
     user: state => state.user,
+    isBroker: state => state.user ? state.user.is_broker : false,
+    isManufacturer: state => state.user ? state.user.is_manufacturer : false,
 };
 
 const actions = {
     async login({commit}, user) {
-        const response = await api.post('/auth/jwt/create/', user);
-        if (response.data.access) {
-            const token = response.data.access;
-            localStorage.setItem('token', token);
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            commit('auth_success', token);
-            await this.dispatch('fetchUser');
+        try {
+            const response = await api.post('/auth/jwt/create/', user);
+            if (response.data.access) {
+                const token = response.data.access;
+                localStorage.setItem('token', token);
+                api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                commit('auth_success', token);
+                await this.dispatch('fetchUser');
+                commit('set_auth_error', null);
+            }
+        } catch (error) {
+            commit('set_auth_error', error.response.data.detail || 'Login failed');
         }
     },
     async fetchUser({commit}) {
@@ -38,11 +46,9 @@ const actions = {
                 email: user.email,
                 password: user.password,
             });
-
-            commit('register_success');
             return response;
         } catch (error) {
-            throw error;
+            commit('set_auth_error', error.response.data.detail || 'Register failed');
         }
     },
 };
@@ -59,8 +65,8 @@ const mutations = {
         state.token = '';
         state.user = null;
     },
-    register_success(state) {
-
+    set_auth_error(state, error) {
+        state.authError = error;
     },
 };
 
