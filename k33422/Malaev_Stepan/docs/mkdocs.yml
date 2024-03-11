@@ -26,3 +26,17 @@ nav:
           - Manufacturer: 'lr_3/lr_3_2/manufacturer.md'
           - Product: 'lr_3/lr_3_2/product.md'
           - Trade: 'lr_3/lr_3_2/trade.md'
+  - lr_4:
+      - Api (Axios): 'lr_4/store.md'
+      - Router: 'lr_4/router.md'
+      - Store (Vuex): 'lr_4/store.md'
+      - Views:
+          - Login: 'lr_4/views/login.md'
+          - Register: 'lr_4/views/register.md'
+          - Profile: 'lr_4/views/profile.md'
+          - Broker: 'lr_4/views/broker.md'
+          - Manufacturer: 'lr_4/views/manufacturer.md'
+          - Trades: 'lr_4/views/trades.md'
+          - TradeDetail: 'lr_4/views/trade_detail.md'
+          - Products: 'lr_4/views/products.md'
+          - ProductDetail: 'lr_4/views/product_detail.md'
