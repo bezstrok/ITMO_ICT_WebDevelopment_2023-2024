@@ -1,18 +1,23 @@
 <template>
-  <v-card outlined class="my-3">
+  <v-card class="my-3" outlined>
     <v-card-title>{{ title }}</v-card-title>
     <v-card-text>
-      <template v-for="(value, key) in obj" :key="`nested-${key}`">
-        <div v-if="isNestedObject(value)">
-          <NestedCard :obj="value" :title="formatTitle(key)"/>
-        </div>
-        <v-list v-else two-line dense>
-          <v-list-item>
-            <v-list-item-title>{{ formatTitle(key) }}</v-list-item-title>
-            <v-list-item-subtitle>{{ formatValue(value) }}</v-list-item-subtitle>
-          </v-list-item>
-        </v-list>
-      </template>
+      <v-row>
+        <template v-for="(value, key) in obj" :key="`nested-${key}`">
+          <v-col cols="12" md="6">
+            <div v-if="isNestedObject(value)">
+              <NestedCard :obj="value" :title="formatTitle(key)"/>
+            </div>
+            <div v-else class="d-flex justify-start align-center">
+              <v-icon class="mr-2">mdi-chevron-right</v-icon>
+              <div>
+                <div class="text-subtitle-2">{{ formatTitle(key) }}</div>
+                <div class="text-caption">{{ formatValue(value) }}</div>
+              </div>
+            </div>
+          </v-col>
+        </template>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
@@ -40,3 +45,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.d-flex {
+  display: flex;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+</style>

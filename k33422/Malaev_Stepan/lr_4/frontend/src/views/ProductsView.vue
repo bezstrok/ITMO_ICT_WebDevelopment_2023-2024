@@ -1,20 +1,31 @@
 <template>
   <v-container>
     <v-data-table
-        :headers="headers"
-        :items="products"
-        item-key="id"
-        class="elevation-1"
         :footer-props="{
         'items-per-page-options': [5, 10, 15, -1]
       }"
+        :headers="headers"
+        :items="products"
+        :search="search"
+        class="elevation-1"
         hide-default-footer
         hover
+        item-key="id"
     >
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Products Overview</v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-text-field
+              v-model="search"
+              density="compact"
+              flat
+              hide-details
+              label="Search"
+              prepend-inner-icon="mdi-magnify"
+              single-line
+              variant="solo-filled"
+          ></v-text-field>
           <v-btn color="primary" @click="addProduct">Add Product</v-btn>
         </v-toolbar>
       </template>
@@ -41,17 +52,17 @@
           <v-form>
             <v-text-field v-model="newProduct.name" label="Name" required></v-text-field>
             <v-text-field v-model="newProduct.category" label="Category" required></v-text-field>
-            <v-text-field v-model="newProduct.weight" label="Weight" type="number" required></v-text-field>
-            <v-text-field v-model="newProduct.production_date" label="Production Date" type="date"
-                          required></v-text-field>
-            <v-text-field v-model="newProduct.expiry_date" label="Expiry Date" type="date" required></v-text-field>
+            <v-text-field v-model="newProduct.weight" label="Weight" required type="number"></v-text-field>
+            <v-text-field v-model="newProduct.production_date" label="Production Date" required
+                          type="date"></v-text-field>
+            <v-text-field v-model="newProduct.expiry_date" label="Expiry Date" required type="date"></v-text-field>
             <v-text-field v-model="newProduct.measurement_unit" label="Measurement Unit" required></v-text-field>
           </v-form>
 
           <v-alert
               v-if="productAddError"
-              type="error"
               class="mb-3"
+              type="error"
           >
             {{ productAddError }}
           </v-alert>
@@ -72,6 +83,7 @@ import api from "@/api";
 export default {
   data() {
     return {
+      search: '',
       products: [],
       headers: [
         {title: 'ID', key: 'id'},

@@ -20,11 +20,11 @@
       <v-card-text>
         <v-row>
           <v-col
-              cols="12" sm="6" md="4" lg="3"
-              v-for="batch in batches.results"
-              :key="batch.id"
+              v-for="batch in batches.results" :key="batch.id" cols="12" lg="3"
+              md="4"
+              sm="6"
           >
-            <v-card outlined class="pa-3">
+            <v-card class="pa-3" outlined>
               <v-card-title>Batch ID: {{ batch.id }}</v-card-title>
               <v-card-subtitle>
                 <div>Quantity: {{ batch.quantity }}</div>
@@ -33,10 +33,10 @@
               </v-card-subtitle>
               <v-card-actions>
                 <v-btn
-                    color="primary"
-                    @click="initiateTrade(batch.id)"
                     v-if="batch.is_available"
                     block
+                    color="primary"
+                    @click="initiateTrade(batch.id)"
                 >
                   Trade
                 </v-btn>
@@ -57,14 +57,14 @@
             <v-text-field
                 v-model="tradeForm.total_amount"
                 label="Total Amount"
-                type="number"
                 required
+                type="number"
             ></v-text-field>
           </v-form>
           <v-alert
               v-if="tradeError"
-              type="error"
               dense
+              type="error"
           >
             {{ tradeError }}
           </v-alert>

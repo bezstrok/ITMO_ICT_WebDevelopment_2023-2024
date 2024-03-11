@@ -1,18 +1,18 @@
 <template>
   <v-container>
     <v-data-table
-        :headers="headers"
-        :items="trades"
-        item-key="id"
-        class="elevation-1"
         :footer-props="{
           'items-per-page-options': [5, 10, 15, -1]
         }"
+        :headers="headers"
+        :items="trades"
+        class="elevation-1"
         hide-default-footer
         hover
+        item-key="id"
     >
       <template v-slot:top>
-        <v-toolbar flat color="white">
+        <v-toolbar color="white" flat>
           <v-toolbar-title>Trades Overview</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>

@@ -7,16 +7,16 @@
           <div v-if="typeof value === 'object' && value !== null && !Array.isArray(value)">
             <NestedCard :obj="value" :title="formatTitle(key)"/>
           </div>
-          <v-list v-else two-line dense>
+          <v-list v-else dense two-line>
             <v-list-item>
-                <v-list-item-title class="blue-grey--text">{{ formatTitle(key) }}</v-list-item-title>
-                <v-list-item-subtitle>{{ formatValue(key, value) }}</v-list-item-subtitle>
+              <v-list-item-title class="blue-grey--text">{{ formatTitle(key) }}</v-list-item-title>
+              <v-list-item-subtitle>{{ formatValue(key, value) }}</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </template>
       </v-card-text>
     </v-card>
-    <v-progress-circular v-else indeterminate color="primary"></v-progress-circular>
+    <v-progress-circular v-else color="primary" indeterminate></v-progress-circular>
   </v-container>
 </template>
 

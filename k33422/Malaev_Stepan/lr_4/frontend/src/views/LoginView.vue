@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
-    <v-row justify="center" align="center">
-      <v-col cols="12" sm="8" md="6" lg="4">
+    <v-row align="center" justify="center">
+      <v-col cols="12" lg="4" md="6" sm="8">
         <v-card class="elevation-12" outlined>
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title>Login</v-toolbar-title>
@@ -9,29 +9,29 @@
           <v-card-text>
             <v-form ref="form" @submit.prevent="onLogin">
               <v-text-field
-                  label="Email"
-                  prepend-icon="mdi-email"
-                  type="email"
                   v-model="loginForm.email"
                   :rules="[rules.required, rules.email]"
-                  outlined dense
+                  dense
+                  label="Email"
+                  outlined
+                  prepend-icon="mdi-email" type="email"
               ></v-text-field>
 
               <v-text-field
-                  label="Password"
-                  prepend-icon="mdi-lock"
-                  type="password"
                   v-model="loginForm.password"
                   :rules="[rules.required]"
-                  outlined dense
+                  dense
+                  label="Password"
+                  outlined
+                  prepend-icon="mdi-lock" type="password"
               ></v-text-field>
 
               <v-alert
-                  type="error"
                   v-if="authError"
+                  class="mt-4"
                   dense
                   outlined
-                  class="mt-4"
+                  type="error"
               >
                 {{ authError }}
               </v-alert>
@@ -39,14 +39,14 @@
           </v-card-text>
 
           <v-card-actions class="pa-5 justify-center">
-            <v-btn type="submit" color="secondary" class="white--text" block @click="onLogin">
+            <v-btn block class="white--text" color="secondary" type="submit" @click="onLogin">
               Sign in
             </v-btn>
           </v-card-actions>
 
           <v-card-text class="text-center">
             Don't have an account?
-            <router-link to="/register" class="register-link">Register</router-link>
+            <router-link class="register-link" to="/register">Register</router-link>
           </v-card-text>
         </v-card>
       </v-col>

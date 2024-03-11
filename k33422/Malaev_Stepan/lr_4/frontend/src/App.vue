@@ -3,7 +3,7 @@
     <v-app-bar app color="primary" dark>
       <v-toolbar-title>TradeFlow</v-toolbar-title>
 
-      <v-tabs v-if="isAuthenticated" class="flex-grow-1" centered>
+      <v-tabs v-if="isAuthenticated" centered class="flex-grow-1">
         <v-tab to="/trades">Trades</v-tab>
         <v-tab to="/products">Products</v-tab>
       </v-tabs>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
   computed: {

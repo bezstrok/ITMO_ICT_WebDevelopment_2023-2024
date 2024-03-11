@@ -17,7 +17,7 @@
                 Fixed Monthly Amount: {{ brokerInfo.fixed_monthly_amount }}
               </v-chip>
             </div>
-            <v-card outlined class="mt-4">
+            <v-card class="mt-4" outlined>
               <v-card-title>
                 <v-icon left>mdi-office-building</v-icon>
                 Firm Details
@@ -56,15 +56,15 @@
           <v-card-title class="blue-grey darken-4 white--text">My Trades</v-card-title>
           <v-card-text>
             <v-data-table
-                :headers="headers"
-                :items="trades"
-                item-key="id"
-                class="elevation-1"
                 :footer-props="{
           'items-per-page-options': [5, 10, 15, -1]
         }"
+                :headers="headers"
+                :items="trades"
+                class="elevation-1"
                 hide-default-footer
                 hover
+                item-key="id"
             >
               <template v-slot:item="{ item }">
                 <tr @click="goToTradeDetail(item)">
@@ -82,14 +82,14 @@
                   <td>{{ item.quantity }}</td>
                   <td>
                     <v-btn
-                        size="small"
-                        color="blue"
-                        @click.stop="openEditDialog(item)"
                         :disabled="item.status === 'closed'"
+                        color="blue"
+                        size="small"
+                        @click.stop="openEditDialog(item)"
                     >
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
-                    <v-btn size="small" color="red" @click.stop="deleteTrade(item.id)">
+                    <v-btn color="red" size="small" @click.stop="deleteTrade(item.id)">
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                   </td>
@@ -115,7 +115,7 @@
     </v-row>
   </v-container>
 
-  <v-dialog v-model="editDialog" persistent max-width="600px">
+  <v-dialog v-model="editDialog" max-width="600px" persistent>
     <v-card>
       <v-card-title>
         Edit Trade
@@ -123,14 +123,14 @@
       <v-card-text>
         <v-form>
           <v-text-field
-              label="Total Amount"
               v-model="editForm.total_amount"
+              label="Total Amount"
               type="number"
           ></v-text-field>
           <v-select
-              label="Status"
-              :items="['open', 'closed', 'pending']"
               v-model="editForm.status"
+              :items="['open', 'closed', 'pending']"
+              label="Status"
           ></v-select>
         </v-form>
       </v-card-text>
@@ -145,7 +145,6 @@
 
 <script>
 import api from "@/api";
-import {th} from "vuetify/locale";
 
 export default {
   data() {

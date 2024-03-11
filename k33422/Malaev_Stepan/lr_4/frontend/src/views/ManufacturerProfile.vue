@@ -11,7 +11,7 @@
                 Products Count: {{ manufacturerInfo.products_count }}
               </v-chip>
             </div>
-            <v-card outlined class="mt-4">
+            <v-card class="mt-4" outlined>
               <v-card-title>
                 <v-icon left>mdi-factory</v-icon>
                 Details
@@ -60,15 +60,15 @@
         <v-card>
           <v-card-text>
             <v-data-table
-                :headers="headers"
-                :items="products"
-                item-key="id"
-                class="elevation-1"
                 :footer-props="{
                 'items-per-page-options': [5, 10, 15, -1]
               }"
+                :headers="headers"
+                :items="products"
+                class="elevation-1"
                 hide-default-footer
                 hover
+                item-key="id"
             >
               <template v-slot:top>
                 <v-toolbar flat>
@@ -89,14 +89,14 @@
                   <td>{{ item.manufacturer }}</td>
                   <td>
                     <v-btn
-                        size="small"
-                        color="blue"
-                        @click.stop="openEditDialog(item)"
                         :disabled="item.status === 'closed'"
+                        color="blue"
+                        size="small"
+                        @click.stop="openEditDialog(item)"
                     >
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
-                    <v-btn size="small" color="red" @click.stop="deleteProduct(item.id)">
+                    <v-btn color="red" size="small" @click.stop="deleteProduct(item.id)">
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                   </td>
@@ -117,17 +117,17 @@
           <v-form>
             <v-text-field v-model="newProduct.name" label="Name" required></v-text-field>
             <v-text-field v-model="newProduct.category" label="Category" required></v-text-field>
-            <v-text-field v-model="newProduct.weight" label="Weight" type="number" required></v-text-field>
-            <v-text-field v-model="newProduct.production_date" label="Production Date" type="date"
-                          required></v-text-field>
-            <v-text-field v-model="newProduct.expiry_date" label="Expiry Date" type="date" required></v-text-field>
+            <v-text-field v-model="newProduct.weight" label="Weight" required type="number"></v-text-field>
+            <v-text-field v-model="newProduct.production_date" label="Production Date" required
+                          type="date"></v-text-field>
+            <v-text-field v-model="newProduct.expiry_date" label="Expiry Date" required type="date"></v-text-field>
             <v-text-field v-model="newProduct.measurement_unit" label="Measurement Unit" required></v-text-field>
           </v-form>
 
           <v-alert
               v-if="productAddError"
-              type="error"
               class="mb-3"
+              type="error"
           >
             {{ productAddError }}
           </v-alert>
@@ -149,10 +149,10 @@
           <v-form>
             <v-text-field v-model="newProduct.name" label="Name" required></v-text-field>
             <v-text-field v-model="newProduct.category" label="Category" required></v-text-field>
-            <v-text-field v-model="newProduct.weight" label="Weight" type="number" required></v-text-field>
-            <v-text-field v-model="newProduct.production_date" label="Production Date" type="date"
-                          required></v-text-field>
-            <v-text-field v-model="newProduct.expiry_date" label="Expiry Date" type="date" required></v-text-field>
+            <v-text-field v-model="newProduct.weight" label="Weight" required type="number"></v-text-field>
+            <v-text-field v-model="newProduct.production_date" label="Production Date" required
+                          type="date"></v-text-field>
+            <v-text-field v-model="newProduct.expiry_date" label="Expiry Date" required type="date"></v-text-field>
             <v-text-field v-model="newProduct.measurement_unit" label="Measurement Unit" required></v-text-field>
           </v-form>
         </v-card-text>

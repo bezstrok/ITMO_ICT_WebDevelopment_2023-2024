@@ -17,12 +17,12 @@
               <v-list-item>
                 <v-icon>mdi-briefcase-check</v-icon>
                 Broker
-                <v-icon small color="green" v-if="userProfile.is_broker">mdi-check-circle</v-icon>
+                <v-icon v-if="userProfile.is_broker" color="green" small>mdi-check-circle</v-icon>
               </v-list-item>
               <v-list-item>
                 <v-icon>mdi-factory</v-icon>
                 Manufacturer
-                <v-icon small color="green" v-if="userProfile.is_manufacturer">mdi-check-circle</v-icon>
+                <v-icon v-if="userProfile.is_manufacturer" color="green" small>mdi-check-circle</v-icon>
               </v-list-item>
             </v-list>
           </v-card-text>
