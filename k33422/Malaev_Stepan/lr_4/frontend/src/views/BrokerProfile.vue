@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="isBroker">
     <v-row>
       <v-col cols="12" md="6">
         <v-card>
@@ -102,6 +102,19 @@
     </v-row>
   </v-container>
 
+  <v-container v-else>
+    <v-row>
+      <v-col cols="12">
+        <v-card class="mb-4">
+          <v-card-title>Welcome to Your Broker Profile</v-card-title>
+          <v-card-text>
+            Sorry, but now you are not a broker.
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+
   <v-dialog v-model="editDialog" persistent max-width="600px">
     <v-card>
       <v-card-title>
@@ -116,7 +129,7 @@
           ></v-text-field>
           <v-select
               label="Status"
-              :items="['open', 'closed']"
+              :items="['open', 'closed', 'pending']"
               v-model="editForm.status"
           ></v-select>
         </v-form>
@@ -132,10 +145,12 @@
 
 <script>
 import api from "@/api";
+import {th} from "vuetify/locale";
 
 export default {
   data() {
     return {
+      isBroker: false,
       brokerInfo: {},
       updateForm: {
         profit_percentage: null,
@@ -165,6 +180,7 @@ export default {
   async created() {
     await this.fetchBrokerInfo();
     await this.fetchBrokerTrades();
+    await this.checkUserRole();
   },
   methods: {
     async fetchBrokerInfo() {
@@ -224,7 +240,15 @@ export default {
       } catch (error) {
         console.error("Error updating trade:", error);
       }
-    }
+    },
+    async checkUserRole() {
+      try {
+        const response = await api.get('/auth/users/me/');
+        this.isBroker = response.data.is_broker;
+      } catch (error) {
+        console.error("Error fetching user information:", error);
+      }
+    },
 
   },
 };

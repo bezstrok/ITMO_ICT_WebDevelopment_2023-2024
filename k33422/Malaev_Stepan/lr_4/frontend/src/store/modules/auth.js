@@ -9,8 +9,6 @@ const state = {
 const getters = {
     isAuthenticated: state => !!state.token,
     user: state => state.user,
-    isBroker: state => state.user ? state.user.is_broker : false,
-    isManufacturer: state => state.user ? state.user.is_manufacturer : false,
 };
 
 const actions = {

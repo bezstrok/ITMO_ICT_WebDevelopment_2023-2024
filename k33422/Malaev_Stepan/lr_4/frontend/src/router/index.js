@@ -1,5 +1,5 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import {createRouter, createWebHistory} from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import TradesView from "@/views/TradesView.vue";
@@ -8,6 +8,7 @@ import ProductsView from "@/views/ProductsView.vue";
 import ProductDetail from "@/views/ProductDetail.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import BrokerProfile from "@/views/BrokerProfile.vue";
+import ManufacturerProfile from "@/views/ManufacturerProfile.vue";
 
 const routes = [
     {
@@ -56,6 +57,11 @@ const routes = [
         path: '/broker',
         name: 'Broker',
         component: BrokerProfile
+    },
+    {
+        path: '/manufacturer',
+        name: 'Manufacturer',
+        component: ManufacturerProfile
     },
 ]
 
