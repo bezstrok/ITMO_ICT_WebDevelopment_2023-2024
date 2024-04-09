@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car</title>
+</head>
+<body>
+<h2>Детали автомобиля:</h2>
+<p>Марка: {{ object.brand }}</p>
+<p>Модель: {{ object.model }}</p>
+<p>Гос. номер: {{ object.state_number }}</p>
+<p>Цвет: {{ object.color }}</p>
+<a href="/cars/update/{{ object.id_car }}/">Редактировать</a>
+</body>
+</html>

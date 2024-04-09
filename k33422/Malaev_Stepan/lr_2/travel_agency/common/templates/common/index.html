@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <form action="{% url 'explore' %}" method="get">
+            <div class="row center">
+                <h2 class="center dynamic-header">Next <span></span></h2>
+                <h5 class="col s12 light">Where will you go next?</h5>
+                <div class="input-field col l11 s11">
+                    <i class="material-icons prefix">location_on</i>
+                    <input type="text" name="search" id="autocomplete-input" class="autocomplete">
+                    <label for="autocomplete-input">Next Destination</label>
+                </div>
+                <div class="input-field col l1 s1">
+                    <button class="btn waves-effect waves-light" type="submit">
+                        <i class="large material-icons">search</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br><br>
+
+    {% if recommended_tours %}
+        <div class="container">
+            <h4 class="center-align teal-text text-darken-2">Recommended Tours Just for You</h4>
+            <div class="row">
+                {% for tour in recommended_tours %}
+                    <div class="col l4 m6 s12">
+                        <div class="card hoverable">
+                            <a href="{% url 'tour_detail' tour.id %}">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img src="{{ MEDIA_URL }}{{ tour.images.all.first.image }}" alt="{{ tour.name }}">
+                                </div>
+                            </a>
+                            <div class="card-content teal lighten-2 white-text">
+                                <span class="card-title activator">{{ tour.name }}<i
+                                        class="material-icons right">more_vert</i></span>
+                                <p>{{ tour.description|truncatewords:20 }}</p>
+                            </div>
+                            <div class="card-reveal teal lighten-2 white-text">
+                                <span class="card-title">{{ tour.name }}<i
+                                        class="material-icons right">close</i></span>
+                                <h6>Agency: {{ tour.agency }}</h6>
+                                <p><strong>Description:</strong> {{ tour.description }}</p>
+                                <p><strong>Country:</strong> {{ tour.country }}</p>
+                                <p><strong>Start Date:</strong> {{ tour.start_date|date:"M d, Y" }}</p>
+                                <p><strong>End Date:</strong> {{ tour.end_date|date:"M d, Y" }}</p>
+                                <p><strong>Duration:</strong> {{ tour.duration }} days</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                        </div>
+                        <div class="row">
+                    {% endif %}
+                {% endfor %}
+                </div>
+        </div>
+    {% endif %}
+{% endblock %}
